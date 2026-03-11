@@ -1,0 +1,375 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Anômalo Premium Design System */
+
+@layer base {
+  :root {
+    /* Core Colors */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 96%;
+    
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 96%;
+    
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 96%;
+    
+    --primary: 45 87% 58%;
+    --primary-foreground: 0 0% 0%;
+    
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 96%;
+    
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 54%;
+    
+    --accent: 45 87% 58%;
+    --accent-foreground: 0 0% 0%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 45 87% 58%;
+    
+    --radius: 1.5rem;
+
+    /* Custom Anômalo Tokens */
+    --anomalo-black: 0 0% 0%;
+    --anomalo-dark: 0 0% 4%;
+    --anomalo-gray: 240 3% 12%;
+    --anomalo-text: 0 0% 96%;
+    --anomalo-muted: 240 2% 53%;
+    --anomalo-yellow: 45 87% 58%;
+    --anomalo-yellow-hover: 45 70% 55%;
+
+    /* Glass & Effects */
+    --glass-bg: rgba(28, 28, 30, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glow-color: rgba(242, 201, 76, 0.4);
+    --shimmer-gradient: linear-gradient(
+      120deg,
+      transparent 10%,
+      rgba(255, 255, 255, 0.15) 20%,
+      rgba(255, 255, 255, 0.3) 25%,
+      rgba(255, 255, 255, 0.15) 30%,
+      transparent 40%
+    );
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    cursor: default;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    overflow-x: hidden;
+  }
+
+  a, button, [role="button"], input[type="submit"], .cursor-pointer {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: rgba(242, 201, 76, 0.3);
+    color: #fff;
+  }
+
+  ::-moz-selection {
+    background: rgba(242, 201, 76, 0.3);
+    color: #fff;
+  }
+
+  /* Premium Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #333 0%, #1c1c1e 100%);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #444 0%, #2c2c2e 100%);
+  }
+
+  img {
+    transition: opacity 0.3s ease;
+  }
+}
+
+@layer components {
+  /* Glass Card */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+  }
+
+  /* Gradient Border */
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(242, 201, 76, 0.3),
+      transparent 40%,
+      transparent 60%,
+      rgba(242, 201, 76, 0.1)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Shimmer Effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--shimmer-gradient);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+  }
+
+  /* Glow Effect */
+  .glow {
+    box-shadow: 0 0 40px var(--glow-color);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 40px var(--glow-color);
+  }
+
+  /* Magnetic Button */
+  .magnetic-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  /* Scroll Progress */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, hsl(var(--anomalo-yellow)), hsl(var(--anomalo-yellow-hover)));
+    transform-origin: left;
+    z-index: 9999;
+  }
+
+  /* Link Underline Animation */
+  .link-underline {
+    position: relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background: hsl(var(--anomalo-yellow));
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+  }
+
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  /* Hero Text Gradient */
+  .text-gradient {
+    background: linear-gradient(135deg, #fff 0%, #f5f5f7 50%, hsl(var(--anomalo-yellow)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Premium Button */
+  .btn-premium {
+    @apply relative inline-flex items-center justify-center px-8 py-4 font-medium text-sm uppercase tracking-widest transition-all duration-300;
+    background: hsl(var(--anomalo-yellow));
+    color: hsl(var(--anomalo-black));
+    border-radius: 9999px;
+  }
+
+  .btn-premium:hover {
+    background: hsl(var(--anomalo-yellow-hover));
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(242, 201, 76, 0.3);
+  }
+
+  .btn-premium::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, hsl(var(--anomalo-yellow)), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  .btn-premium:hover::before {
+    opacity: 1;
+  }
+
+  /* Outline Button */
+  .btn-outline {
+    @apply relative inline-flex items-center justify-center px-8 py-4 font-medium text-sm uppercase tracking-widest transition-all duration-300;
+    background: transparent;
+    color: hsl(var(--anomalo-text));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 9999px;
+  }
+
+  .btn-outline:hover {
+    border-color: hsl(var(--anomalo-yellow));
+    color: hsl(var(--anomalo-yellow));
+    background: rgba(242, 201, 76, 0.05);
+  }
+
+  /* Floating Animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Pulse Glow */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+}
+
+/* Keyframes */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Shimmer Text Effect - Golden light sweep through white text (continuous) */
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #ffffff 40%,
+    #f2c94c,
+    #ffffff 60%,
+    #ffffff
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+/* Shimmer Delayed Effect - Golden light sweep that runs once after delay */
+.shimmer-delayed {
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #ffffff 40%,
+    #f2c94c,
+    #ffffff 60%,
+    #ffffff
+  );
+  background-size: 200% auto;
+  background-position: -200% center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(242, 201, 76, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(242, 201, 76, 0.4);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes reveal-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
